@@ -106,4 +106,13 @@ public class LinkedList {
             return false;
         }
     }
+    public int[] toArray(){
+        int array[] = new int[nodeCount];
+        Node pointer = first;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = pointer.value;
+            pointer = pointer.next;
+        }
+        return array;
+    }
 }
