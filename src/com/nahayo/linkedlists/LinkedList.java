@@ -134,4 +134,20 @@ public class LinkedList {
             first = previous;
         }
     }
+
+    public int getKthFromTheEnd(int k) {
+        Node p1 = first;
+        Node p2 = first;
+        for (int i = 0; i <= k - 1; i++) {
+            p2 = p2.next;
+            if (p2 == null) {
+                throw new IllegalArgumentException();
+            }
+        }
+        while (p2.next != null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p1.value;
+    }
 }
