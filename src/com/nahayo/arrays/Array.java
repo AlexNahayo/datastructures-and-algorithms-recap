@@ -1,7 +1,5 @@
 package com.nahayo.arrays;
 
-import java.util.regex.Pattern;
-
 public class Array {
     private int size;
     private int array[] = new int[size];
@@ -11,15 +9,16 @@ public class Array {
     }
 
     public void print(){
-     for (int i =0; i<array.length;i++){
-         System.out.println(array[i]);
-     }
+        for (int i =0; i<array.length;i++){
+            System.out.println(array[i]);
+        }
     }
+
     public void insert(int item){
         count++;
         if(array.length > count){
-                array[count - 1] = item;
-            }
+            array[count - 1] = item;
+        }
         else {
             int biggerArray[] = new int[count*2];
             for (int i=0; i<array.length;i++){
@@ -34,9 +33,9 @@ public class Array {
         if(index < 0 || index >= count) {
             throw new IllegalArgumentException();
         }
-            for(int i = index; i<count;i++) {
-                array[i] = array[i + 1];
-            }
+        for(int i = index; i<count;i++) {
+            array[i] = array[i + 1];
+        }
         count--;
     }
 
@@ -56,7 +55,7 @@ public class Array {
         int maxNumber = 0;
         for(int i =0; i<count; i++){
             if(array[i] > maxNumber){
-               maxNumber = array[i];
+                maxNumber = array[i];
             }
         }
         return maxNumber;
@@ -85,16 +84,12 @@ public class Array {
         for(int i  = 0; i<newArray.length ; i++){
             if( i <= index - 1 )
                 newArray[i] = array[i];
-           else if (i == index ){
+            else if (i == index ){
                 newArray[i] =  item;
             }
             else
-            newArray[i] = array[i - 1 ];
+                newArray[i] = array[i - 1 ];
         }
         array = newArray;
     }
 }
-
-
-
-
