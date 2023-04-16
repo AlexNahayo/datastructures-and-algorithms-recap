@@ -118,12 +118,11 @@ public class LinkedList {
     public void reverse() {
         if (isEmpty()) {
             return;
-        }
-        else {
+        } else {
             Node previous = first;
             Node current = previous.next;
             System.out.println(current);
-            while (current!=null) {
+            while (current != null) {
                 Node next = current.next;
                 current.next = previous;
                 previous = current;
@@ -151,26 +150,44 @@ public class LinkedList {
         return p1.value;
     }
 
-    public void printMiddle(){
+    public void printMiddle() {
         int size = 0;
         Node p1 = first;
         Node p2 = first;
-        while (p1!=null){
+        while (p1 != null) {
             p1 = p1.next;
             size++;
         }
-       if(size % 2 == 0) {
-           for (int i = 0; i < size/2 -1; i++) {
-               p2 = p2.next;
-           }
-           System.out.println(p2.value);
-           System.out.println(p2.next.value);
-       }
-       else {
-           for (int i = 0; i < size/2; i++) {
-               p2 = p2.next;
-           }
-           System.out.println(p2.value);
-       }
+        if (size % 2 == 0) {
+            for (int i = 0; i < size / 2 - 1; i++) {
+                p2 = p2.next;
+            }
+            System.out.println(p2.value);
+            System.out.println(p2.next.value);
+        } else {
+            for (int i = 0; i < size / 2; i++) {
+                p2 = p2.next;
+            }
+            System.out.println(p2.value);
+        }
+    }
+
+    public void printMiddleInOnePass() {
+        if (first == null) {
+            throw new IllegalStateException();
+        } else {
+            Node p1 = first;
+            Node p2 = first;
+            while (p2 != last && p2.next != last) {
+                p2 = p2.next.next;
+                p1 = p1.next;
+            }
+            if (p2 == last) {
+                System.out.println(p1.value);
+            } else {
+                System.out.println(p1.value);
+                System.out.println(p1.next.value);
+            }
+        }
     }
 }
