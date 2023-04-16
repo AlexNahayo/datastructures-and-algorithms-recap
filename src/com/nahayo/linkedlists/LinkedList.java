@@ -150,4 +150,27 @@ public class LinkedList {
         }
         return p1.value;
     }
+
+    public void printMiddle(){
+        int size = 0;
+        Node p1 = first;
+        Node p2 = first;
+        while (p1!=null){
+            p1 = p1.next;
+            size++;
+        }
+       if(size % 2 == 0) {
+           for (int i = 0; i < size/2 -1; i++) {
+               p2 = p2.next;
+           }
+           System.out.println(p2.value);
+           System.out.println(p2.next.value);
+       }
+       else {
+           for (int i = 0; i < size/2; i++) {
+               p2 = p2.next;
+           }
+           System.out.println(p2.value);
+       }
+    }
 }
