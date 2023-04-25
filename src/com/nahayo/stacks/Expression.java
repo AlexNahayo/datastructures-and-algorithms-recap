@@ -34,6 +34,7 @@ public class Expression {
     private boolean isRightExpression(char ch){
         return rightBrackets.contains(ch);
     }
+    //need to refactor this method
     private boolean bracketsMatch(char left, char right){
         return ((left == ')' && right != '(') || (left == '}' && right != '{') || (left == '>' && right != '<'));
     }
