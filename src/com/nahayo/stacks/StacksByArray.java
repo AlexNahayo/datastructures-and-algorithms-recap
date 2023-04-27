@@ -6,7 +6,7 @@ public class StacksByArray<T> {
     private int count = 0;
 
     int[] stack;
-    
+
     public StacksByArray() {
         stack = new int[0];
     }
@@ -14,7 +14,7 @@ public class StacksByArray<T> {
     public void push(int item){
         count++;
         int[] biggerStack = new int[count];
-        for (int i=0; i<stack.length;i++){
+        for (int i=0; i<stack.length; i++){
             biggerStack[i] =  stack[i];
         }
         stack = biggerStack;
@@ -29,7 +29,7 @@ public class StacksByArray<T> {
             count--;
             int poppedItem;
             int[] smallerStack = new int[count];
-            for (int i=0; i<smallerStack.length;i++){
+            for (int i=0; i<smallerStack.length; i++){
                 smallerStack[i] =  stack[i];
             }
             poppedItem = stack[stack.length -1];
@@ -42,8 +42,12 @@ public class StacksByArray<T> {
         return stack[stack.length -1];
     }
 
+    public boolean isEmpty(){
+        return count == 0;
+    }
+
     public void printStack(){
-        for (int i =0; i<stack.length;i++){
+        for (int i =0; i<stack.length; i++){
             System.out.println(stack[i]);
         }
     }
