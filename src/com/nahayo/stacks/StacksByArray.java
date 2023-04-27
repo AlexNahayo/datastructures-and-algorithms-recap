@@ -8,7 +8,7 @@ public class StacksByArray<T> {
     public StacksByArray() {
          stack = new int[0];
     }
-    //push
+
     public void push(int item){
         count++;
         int[] biggerStack = new int[count];
@@ -18,7 +18,7 @@ public class StacksByArray<T> {
         stack = biggerStack;
         stack[count - 1] = item;
     }
-    //pop
+
     public int pop(){
         if (count <= 0){
             throw new EmptyStackException();
@@ -35,6 +35,7 @@ public class StacksByArray<T> {
             return poppedItem;
         }
     }
+
     public void printStack(){
         for (int i =0; i<stack.length;i++){
             System.out.println(stack[i]);
