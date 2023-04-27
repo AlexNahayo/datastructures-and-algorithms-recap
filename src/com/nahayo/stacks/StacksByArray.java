@@ -4,9 +4,11 @@ import java.util.EmptyStackException;
 
 public class StacksByArray<T> {
     private int count = 0;
+
     int[] stack;
+    
     public StacksByArray() {
-         stack = new int[0];
+        stack = new int[0];
     }
 
     public void push(int item){
@@ -34,6 +36,10 @@ public class StacksByArray<T> {
             stack = smallerStack;
             return poppedItem;
         }
+    }
+
+    public int peak() {
+        return stack[stack.length -1];
     }
 
     public void printStack(){
