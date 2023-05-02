@@ -2,7 +2,7 @@ package com.nahayo.stacks;
 
 import java.util.EmptyStackException;
 
-public class StacksByArray<T> {
+public class StacksByArray {
     private int count = 0;
 
     int[] stack;
