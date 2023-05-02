@@ -39,6 +39,9 @@ public class StacksByArray<T> {
     }
 
     public int peak() {
+        if (count ==0){
+            throw new EmptyStackException();
+        }
         return stack[stack.length -1];
     }
 
