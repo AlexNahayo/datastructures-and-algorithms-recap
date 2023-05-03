@@ -4,8 +4,8 @@ package com.nahayo.stacks;
 /**
  * Question:
  * Implement two stacks in one array. Support these operations:
- * push1() // to push in the first
- * stackpush2() // to push in the second stack
+ * push1() // to push in the first stack
+ * push2() // to push in the second stack
  * pop1()
  * pop2()
  * isEmpty1()
@@ -69,5 +69,5 @@ public class TwoStacks {
         }
     }
 
-    //Todo - pop1 and pop2 methods as well as some more tests. 
+    //Todo - pop1 and pop2 methods as well as some more tests.
 }
