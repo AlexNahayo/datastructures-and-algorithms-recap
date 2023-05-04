@@ -1,6 +1,8 @@
 package com.nahayo.stacks;
 
 
+import java.util.EmptyStackException;
+
 /**
  * Question:
  * Implement two stacks in one array. Support these operations:
@@ -23,7 +25,9 @@ package com.nahayo.stacks;
 public class TwoStacks {
 
     int[] twoStackSize;
+
     int stack1Count = 0;
+
     int stack2Count = 0;
 
     public TwoStacks(int size) {
@@ -35,11 +39,12 @@ public class TwoStacks {
         }
     }
 
-    public void push1(int item){
-        if(stack1Count < twoStackSize.length/2)
+    public void push1(int item) {
+        if (stack1Count < twoStackSize.length / 2) {
             twoStackSize[stack1Count] = item;
             stack1Count++;
         }
+    }
 
     public void push2(int item){
         if(stack2Count < twoStackSize.length/2) {
@@ -48,9 +53,34 @@ public class TwoStacks {
         }
     }
 
+    public int pop1(){
+        if(stack1Count == 0 ){
+            throw new EmptyStackException();
+        }
+        else {
+            int popped1Item = peek1();
+            twoStackSize[stack1Count - 1] = 0;
+            stack1Count--;
+            return popped1Item;
+        }
+    }
+
+    public int pop2(){
+        if(stack2Count == 0 ){
+            throw new EmptyStackException();
+        }
+        else {
+            int popped2Item = peek2();
+            twoStackSize[twoStackSize.length/2 + stack2Count - 1] = 0;
+            stack2Count--;
+            return popped2Item;
+        }
+    }
+
     public boolean isEmpty1() {
         return stack1Count == 0;
     }
+
     public boolean isEmpty2(){
         return stack2Count ==0;
     }
@@ -65,9 +95,25 @@ public class TwoStacks {
 
     public void printStack(){
         for (int item : twoStackSize){
-            System.out.println(item);
+            System.out.print(" " +item + " ");
         }
     }
 
-    //Todo - pop1 and pop2 methods as well as some more tests.
+    public int peek1(){
+        if (stack2Count ==0){
+            throw new EmptyStackException();
+        }
+        else {
+            return twoStackSize[stack1Count - 1];
+        }
+    }
+
+    public int peek2(){
+        if (stack2Count ==0){
+            throw new EmptyStackException();
+        }
+        else {
+            return twoStackSize[twoStackSize.length/2 + stack2Count - 1 ];
+        }
+    }
 }
