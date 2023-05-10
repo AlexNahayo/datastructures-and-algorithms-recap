@@ -1,5 +1,7 @@
 package com.nahayo.queue;
 
+import java.util.Arrays;
+
 public class ArrayQueue {
 
     private final int[] array;
@@ -40,9 +42,8 @@ public class ArrayQueue {
         return count == array.length;
     }
 
-    public void printArrayQueue(){
-        for (int i = 0; i < array.length ; i++) {
-            System.out.println(array[i]);
-        }
+    @Override
+    public String toString(){
+        return Arrays.toString(array);
     }
 }
