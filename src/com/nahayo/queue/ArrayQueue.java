@@ -10,23 +10,22 @@ public class ArrayQueue {
     }
 
     public void enqueue(int item){
-        if(count > array.length){
-            throw new IndexOutOfBoundsException();
+        if(count == array.length){
+            throw new IllegalStateException();
         }
         else{
-            array[count] = item;
-            back = count;
+            array[back] = item;
+            back = (back + 1) % array.length;
         }
         count++;
     }
 
-    public void dequeue(){
-        if(isEmpty()){
-            // Need to find out what exception can be thrown here!
-        }
-        else {
-            ++front;
-        }
+    public int dequeue(){
+        var item = array[front];
+        array[front] = 0;
+        front = (front + 1) % array.length;
+        count--;
+        return item;
     }
 
     public int peek(){
@@ -34,15 +33,15 @@ public class ArrayQueue {
     }
 
     public boolean isEmpty(){
-        return front ==  back;
+        return count == 0;
     }
 
     public boolean isFull(){
-        return back == array.length - 1;
+        return count == array.length;
     }
 
     public void printArrayQueue(){
-        for (int i = front; i <= back ; i++) {
+        for (int i = 0; i < array.length ; i++) {
             System.out.println(array[i]);
         }
     }
