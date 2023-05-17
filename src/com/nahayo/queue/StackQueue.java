@@ -8,7 +8,6 @@ public class StackQueue  {
     private Stack<Integer> stack2 = new Stack<>();
 
     public StackQueue() {
-
     }
 
     public void enqueue(int item){
@@ -42,5 +41,4 @@ public class StackQueue  {
             }
         }
     }
-
 }
