@@ -6,37 +6,41 @@ public class StackQueue  {
 
     private Stack<Integer> stack1 = new Stack<>();
     private Stack<Integer> stack2 = new Stack<>();
-    int stack1Count, stack2Count;
 
     public StackQueue() {
 
     }
 
     public void enqueue(int item){
-        while(!stack2.empty()){
-            stack1.add(stack2.pop());
-        }
-            stack1.add(item);
-        // To do if count < 2 do xxx
+        stack1.push(item);
     }
 
     public int dequeue(){
-        while(!stack1.empty()){
-            stack2.add(stack1.pop());
+        if(isEmpty()){
+            throw new IllegalStateException();
         }
+        moveStack1ToStack2();
         return stack2.pop();
     }
-// TO DO - peak, isEmpty, isFull methods
 
-// Using this method for testing atm
-    public void printQueue(){
-        while (!stack2.isEmpty()){
-            System.out.print(stack2.pop() +  " ");
-        }
-
-        while (!stack1.isEmpty()){
-            System.out.print(stack1.pop() +  " ");
-        }
-
+    public boolean isEmpty(){
+        return stack1.isEmpty() && stack2.isEmpty();
     }
+
+    public int peek(){
+        if(isEmpty()){
+            throw new IllegalStateException();
+        }
+        moveStack1ToStack2();
+        return stack2.peek();
+    }
+
+    private void moveStack1ToStack2() {
+        if(stack2.isEmpty()){
+            while(!stack1.empty()){
+                stack2.push(stack1.pop());
+            }
+        }
+    }
+
 }
