@@ -12,7 +12,7 @@ public class ArrayQueue {
     }
 
     public void enqueue(int item){
-        if(count == array.length){
+        if(isFull()){
             throw new IllegalStateException();
         }
         else{
