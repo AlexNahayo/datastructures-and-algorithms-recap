@@ -1,9 +1,11 @@
 package com.nahayo.hashmap;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class NonRepeatingCharacter {
+public class CharFinder {
     public static final Map <Character,Integer> map2 = new HashMap<>();
     private static void addCharToValueAndCountToHashmap(String sentence){
         int count;
@@ -27,5 +29,15 @@ public class NonRepeatingCharacter {
             }
         }
         return firstNonRepeatedChar;
+    }
+
+    public static Character firstRepeatingChar(String sentence){
+        Set<Character> set = new HashSet<>();
+        for(var ch : sentence.toCharArray()){
+            if(set.contains(ch))
+                return ch;
+            set.add(ch);
+        }
+        return Character.MIN_VALUE;
     }
 }
