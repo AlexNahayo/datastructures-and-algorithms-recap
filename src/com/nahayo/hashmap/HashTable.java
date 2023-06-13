@@ -1,10 +1,11 @@
 package com.nahayo.hashmap;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class HashTable {
-    String [] hashTableArray;
-
+    LinkedList [] hashTableArray;
+    LinkedList chaining;
     //Todo -> Put, Get remove methods
     //put(k,v)
     //get(k) returns v
@@ -14,24 +15,44 @@ public class HashTable {
     // Collision -> chaining methods
 
     public void put(int key, String value){
+        LinkedList<String> linkedList;
         if(key > hashTableArray.length) {
             key = hash(key);
         }
-        hashTableArray[key] = value;
+        if(hashTableArray[key] != null){
+            hashTableArray[key].add(value);
+        }
+        else {
+            linkedList = new LinkedList();
+            linkedList.add(value);
+            hashTableArray[key] = linkedList;
+        }
     }
 
-    public String get (int key){
-        if (key > hashTableArray.length){
+    public LinkedList get (int key){
+        if (keyOutOfBounds(key)){
             throw new IndexOutOfBoundsException();
         }
         return hashTableArray[key];
     }
+
+    public void remove(int key){
+        if (keyOutOfBounds(key)){
+            throw new IndexOutOfBoundsException();
+        }
+        hashTableArray[key].removeLast();
+    }
+
     public HashTable(int size) {
-        hashTableArray = new String[size];
+        hashTableArray = new LinkedList[size];
     }
 
     private int hash(int number){
         return number % hashTableArray.length;
+    }
+
+    private boolean keyOutOfBounds(int key){
+        return key > hashTableArray.length || key < 0;
     }
 
     @Override
