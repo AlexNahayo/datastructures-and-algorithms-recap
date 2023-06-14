@@ -6,13 +6,6 @@ import java.util.LinkedList;
 public class HashTable {
     LinkedList [] hashTableArray;
     LinkedList chaining;
-    //Todo -> Put, Get remove methods
-    //put(k,v)
-    //get(k) returns v
-    //remove(k)
-    // Key -> int
-    // Value -> String
-    // Collision -> chaining methods
 
     public void put(int key, String value){
         LinkedList<String> linkedList;
