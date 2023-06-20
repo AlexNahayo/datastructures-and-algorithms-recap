@@ -2,23 +2,36 @@ package com.nahayo.hashmap;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class HashTableExercises {
 
-    //STILL TO DO....
-    public int mostFrequent(int [] elements){
-        Map<Integer, Integer> mostFrequentTall = new HashMap();
+    //To be finalized
+    public static int mostFrequent(int [] elements){
+        Map<Integer, Integer> mappedElementsWithTally = mapElementsToOccurrenceTally(elements);
         int unique = 0 ;
-        //find unique element as KEY and store occurrence as the value.
-        //nested for  1. loop will obtain key 2. loop will obtain a value of the number of occurrences.
-        //still to figure out how we are going to get the value.
-        for (int i = 0; i < elements.length; i++) {
-            for (int j = 0; j < elements.length; j++) {
-            }
-            if(elements[i] == i){
-               // count
-            }
+        Map.Entry<Integer,Integer> maxEntry = null;
+        for (Map.Entry<Integer, Integer> entry : mappedElementsWithTally.entrySet()){
+           if(maxEntry == null || entry.getValue() > maxEntry.getValue()){
+               maxEntry = entry;
+           }
         }
-        return 0;
+        return maxEntry != null ? maxEntry.getValue() : -1;
+    }
+
+    private static Map<Integer, Integer>  mapElementsToOccurrenceTally(int [] elements){
+        Map<Integer, Integer> mostFrequentTally = new HashMap<>();
+        for (int k : elements) {
+            int count = 0;
+            int element;
+            element = k;
+            for (int i : elements) {
+                if (element == i) {
+                    count++;
+                }
+            }
+            mostFrequentTally.put(k, count);
+        }
+        return mostFrequentTally;
     }
 }
