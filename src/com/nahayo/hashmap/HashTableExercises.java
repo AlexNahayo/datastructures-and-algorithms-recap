@@ -33,6 +33,24 @@ public class HashTableExercises {
         return mapPairs.size();
     }
 
+    //To finish two Sum Method
+    public static Map<Integer,Integer> twoSum(int [] elements, int target){
+        Map<Integer,Integer> twoSumIndexes = new HashMap<>();
+        int x = 0, y = 0;
+        for (int l : elements){
+            int element;
+            element = l;
+            x++;
+            for (int m : elements) {
+                y++;
+                if( l + m == target){
+                   twoSumIndexes.put(x,y);
+                }
+            }
+        }
+        return twoSumIndexes;
+
+    }
 
     private static Map<Integer, Integer>  mapElementsToOccurrenceTally(int [] elements){
         Map<Integer, Integer> mostFrequentTally = new HashMap<>();
