@@ -5,18 +5,19 @@ import java.util.Map;
 import java.util.Set;
 
 public class HashTableExercises {
-
-    //To be finalized
+    
     public static int mostFrequent(int [] elements){
         Map<Integer, Integer> mappedElementsWithTally = mapElementsToOccurrenceTally(elements);
+        System.out.println(mappedElementsWithTally);
         int unique = 0 ;
         Map.Entry<Integer,Integer> maxEntry = null;
         for (Map.Entry<Integer, Integer> entry : mappedElementsWithTally.entrySet()){
            if(maxEntry == null || entry.getValue() > maxEntry.getValue()){
                maxEntry = entry;
+               System.out.println("Key : "+ maxEntry.getKey() + ", Value : " + maxEntry.getValue());
            }
         }
-        return maxEntry != null ? maxEntry.getValue() : -1;
+        return maxEntry != null ? maxEntry.getKey() : -1;
     }
 
     private static Map<Integer, Integer>  mapElementsToOccurrenceTally(int [] elements){
