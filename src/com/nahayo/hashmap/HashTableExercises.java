@@ -19,6 +19,21 @@ public class HashTableExercises {
         return maxEntry != null ? maxEntry.getKey() : -1;
     }
 
+    public static int countPairsWithDiff(int [] elements, int k){
+        Map<Integer,Integer> mapPairs = new HashMap<>();
+        for (int l : elements){
+            int element;
+            element = l;
+            for (int m : elements) {
+                if( l - m == k){
+                    mapPairs.put(l,m);
+                }
+            }
+        }
+        return mapPairs.size();
+    }
+
+
     private static Map<Integer, Integer>  mapElementsToOccurrenceTally(int [] elements){
         Map<Integer, Integer> mostFrequentTally = new HashMap<>();
         for (int k : elements) {
