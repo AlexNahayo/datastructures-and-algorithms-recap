@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class HashTableExercises {
-    
+
     public static int mostFrequent(int [] elements){
         Map<Integer, Integer> mappedElementsWithTally = mapElementsToOccurrenceTally(elements);
         System.out.println(mappedElementsWithTally);
@@ -14,7 +14,6 @@ public class HashTableExercises {
         for (Map.Entry<Integer, Integer> entry : mappedElementsWithTally.entrySet()){
            if(maxEntry == null || entry.getValue() > maxEntry.getValue()){
                maxEntry = entry;
-               System.out.println("Key : "+ maxEntry.getKey() + ", Value : " + maxEntry.getValue());
            }
         }
         return maxEntry != null ? maxEntry.getKey() : -1;
