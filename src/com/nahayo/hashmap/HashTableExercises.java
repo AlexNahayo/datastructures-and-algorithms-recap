@@ -8,13 +8,11 @@ public class HashTableExercises {
 
     public static int mostFrequent(int [] elements){
         Map<Integer, Integer> mappedElementsWithTally = mapElementsToOccurrenceTally(elements);
-        System.out.println(mappedElementsWithTally);
-        int unique = 0 ;
         Map.Entry<Integer,Integer> maxEntry = null;
         for (Map.Entry<Integer, Integer> entry : mappedElementsWithTally.entrySet()){
-           if(maxEntry == null || entry.getValue() > maxEntry.getValue()){
-               maxEntry = entry;
-           }
+            if(maxEntry == null || entry.getValue() > maxEntry.getValue()){
+                maxEntry = entry;
+            }
         }
         return maxEntry != null ? maxEntry.getKey() : -1;
     }
@@ -22,8 +20,6 @@ public class HashTableExercises {
     public static int countPairsWithDiff(int [] elements, int k){
         Map<Integer,Integer> mapPairs = new HashMap<>();
         for (int l : elements){
-            int element;
-            element = l;
             for (int m : elements) {
                 if( l - m == k){
                     mapPairs.put(l,m);
@@ -36,16 +32,16 @@ public class HashTableExercises {
     public static Map<Integer,Integer> twoSum(int [] elements, int target){
         Map<Integer,Integer> twoSumIndexes = new HashMap<>();
         int x = -1, y = -1 ;
-       outer : for (int l : elements){
-                x++;
-                for (int m : elements) {
-                    y++;
-                    if( l + m == target){
-                       twoSumIndexes.put(x,y);
-                       break outer;
-                    }
+        outer : for (int l : elements){
+            x++;
+            for (int m : elements) {
+                y++;
+                if( l + m == target){
+                    twoSumIndexes.put(x,y);
+                    break outer;
                 }
-                y = -1;
+            }
+            y = -1;
         }
         return twoSumIndexes;
     }
