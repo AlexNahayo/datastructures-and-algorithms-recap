@@ -33,23 +33,21 @@ public class HashTableExercises {
         return mapPairs.size();
     }
 
-    //To finish two Sum Method
     public static Map<Integer,Integer> twoSum(int [] elements, int target){
         Map<Integer,Integer> twoSumIndexes = new HashMap<>();
-        int x = 0, y = 0;
-        for (int l : elements){
-            int element;
-            element = l;
-            x++;
-            for (int m : elements) {
-                y++;
-                if( l + m == target){
-                   twoSumIndexes.put(x,y);
+        int x = -1, y = -1 ;
+       outer : for (int l : elements){
+                x++;
+                for (int m : elements) {
+                    y++;
+                    if( l + m == target){
+                       twoSumIndexes.put(x,y);
+                       break outer;
+                    }
                 }
-            }
+                y = -1;
         }
         return twoSumIndexes;
-
     }
 
     private static Map<Integer, Integer>  mapElementsToOccurrenceTally(int [] elements){
