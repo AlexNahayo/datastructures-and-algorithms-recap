@@ -16,18 +16,18 @@ public class Tree {
         }
     }
 
-    public Tree(Node root) {
-        this.root = root;
+    public Tree() {
+        root = new Node(0);
     }
 
-    //Todo  
+    //Todo
     public void insert(int value){
         Node pointer;
         if(root.value == 0) {
             root.value = value;
         }
         else {
-            var newNode = new Node(value);
+            Node newNode = new Node(value);
             // pointer needs to start at root
             // check value of current node you are pointing to
             // 1. if value > than current node value then
@@ -37,14 +37,24 @@ public class Tree {
             //  a) if the current node.leftChild == null then point, left child to current pointer node -- point new node to current pointer, then current pointer to new node.
             //  b) if the current node.leftChild != null then keep drilling down until you get to
             pointer = this.root;
-            while (pointer.leftChild != null || pointer.rightChild !=null){
-                if(pointer.value > newNode.value) {
+
+            while (pointer.leftChild != null || pointer.rightChild!= null  ){
+                if(newNode.value > pointer.value){
                     pointer = pointer.rightChild;
                 }
-                else if (pointer.value < newNode.value) {
+                else if (newNode.value > pointer.value){
                     pointer = pointer.leftChild;
                 }
             }
+
+            //This is last portion to actually add to the data
+            if(newNode.value > pointer.value && pointer.rightChild == null ) {
+                pointer.rightChild = newNode;
+            }
+            else if (newNode.value < pointer.value && pointer.leftChild == null) {
+                pointer.leftChild = newNode;
+            }
+
         }
 
     }
