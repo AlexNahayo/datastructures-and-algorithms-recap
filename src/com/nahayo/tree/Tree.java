@@ -19,20 +19,20 @@ public class Tree {
 
     public void insert(int value){
         Node newNode = new Node(value);
-        if(root == null) {
+        if (root == null) {
             root = newNode;
         }
         Node current = root;
         while (true){
-            if(value < current.value){
-                if(current.leftChild == null){
+            if (value < current.value){
+                if (current.leftChild == null){
                     current.leftChild = newNode;
                     break;
                 }
                 current = current.leftChild;
             }
             else {
-                if(current.rightChild == null){
+                if (current.rightChild == null) {
                     current.rightChild = newNode;
                     break;
                 }
