@@ -3,6 +3,7 @@ package com.nahayo.tree;
 
 public class Tree {
     private Node root;
+
     private class Node {
         private int value;
         private Node leftChild;
@@ -21,6 +22,7 @@ public class Tree {
         Node newNode = new Node(value);
         if (root == null) {
             root = newNode;
+            return;
         }
         Node current = root;
         while (true){
@@ -41,9 +43,27 @@ public class Tree {
         }
     }
 
-    //Todo
     public boolean value(int value){
-        return true;
+        if (root == null) {
+            return false;
+        }
+        Node current = root;
+        while (true) {
+            if (value == current.value) {
+                return true;
+            } else {
+                if (value < current.value) {
+                    if (current.leftChild == null) {
+                        return false;
+                    }
+                    current = current.leftChild;
+                } else {
+                    if (current.rightChild == null) {
+                        return false;
+                    }
+                    current = current.rightChild;
+                }
+            }
+        }
     }
-
 }
