@@ -1,8 +1,6 @@
 package com.nahayo.tree;
 
 
-import java.util.Map;
-
 public class Tree {
     private Node root;
 
