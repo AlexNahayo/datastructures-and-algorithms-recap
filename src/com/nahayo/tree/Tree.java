@@ -1,6 +1,8 @@
 package com.nahayo.tree;
 
 
+import java.util.Map;
+
 public class Tree {
     private Node root;
 
@@ -70,6 +72,7 @@ public class Tree {
     public void traversePreOrder(){
         traversePreOrder(root);
     }
+
     private void traversePreOrder(Node root){
         if(root == null)
             return;
@@ -101,4 +104,46 @@ public class Tree {
         System.out.println(root.value);
     }
 
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node root){
+        if(root == null)
+            return -1;
+        if(isLeafNode(root))
+            return 0;
+        return 1 + Math.max(height(root.leftChild), height(root.rightChild));
+    }
+
+    private boolean isLeafNode(Node node){
+        return node.leftChild == null && node.rightChild == null;
+    }
+
+    public int minInBinarySearchTree(){
+        if (root == null)
+            throw new IllegalStateException();
+
+        var current = root;
+        var last = current;
+        while (current != null){
+            last = current;
+            current = current.leftChild;
+        }
+        return last.value;
+    }
+
+    public int min(){
+        return min(root);
+    }
+
+    private int min(Node root){
+        if(isLeafNode(root)){
+            return root.value;
+        }
+        var left = min(root.leftChild);
+        var right = min(root.leftChild);
+
+        return Math.min(Math.min(left,right), root.value);
+    }
 }
