@@ -144,4 +144,22 @@ public class Tree {
 
         return Math.min(Math.min(left,right), root.value);
     }
+
+    public boolean equals(Tree t2){
+        if(t2 == null){
+            return false;
+        }
+       return identicalTrees(this.root,t2.root);
+    }
+
+    private boolean identicalTrees(Node a, Node b){
+        if(a== null && b == null){
+            return true;
+        }
+        if(a != null && b != null){
+            return (a.value == b.value && identicalTrees(a.leftChild, b.leftChild)
+                    && identicalTrees(a.rightChild, b.rightChild));
+        }
+        return false;
+    }
 }
