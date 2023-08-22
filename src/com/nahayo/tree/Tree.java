@@ -153,7 +153,7 @@ public class Tree {
     }
 
     private boolean identicalTrees(Node a, Node b){
-        if(a== null && b == null){
+        if(a == null && b == null){
             return true;
         }
         if(a != null && b != null){
