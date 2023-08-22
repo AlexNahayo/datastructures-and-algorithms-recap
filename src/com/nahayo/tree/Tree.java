@@ -141,7 +141,6 @@ public class Tree {
         }
         var left = min(root.leftChild);
         var right = min(root.leftChild);
-
         return Math.min(Math.min(left,right), root.value);
     }
 
