@@ -121,7 +121,6 @@ public class Tree {
     public int minInBinarySearchTree(){
         if (root == null)
             throw new IllegalStateException();
-
         var current = root;
         var last = current;
         while (current != null){
@@ -148,7 +147,7 @@ public class Tree {
         if(t2 == null){
             return false;
         }
-       return identicalTrees(this.root,t2.root);
+        return identicalTrees(this.root,t2.root);
     }
 
     private boolean identicalTrees(Node a, Node b){
