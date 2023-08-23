@@ -18,7 +18,7 @@ public class Tree {
         }
     }
 
-    public void insert(int value){
+    public void insert(int value) {
         Node newNode = new Node(value);
         if (root == null) {
             root = newNode;
@@ -43,7 +43,7 @@ public class Tree {
         }
     }
 
-    public boolean value(int value){
+    public boolean value(int value) {
         if (root == null) {
             return false;
         }
@@ -67,11 +67,11 @@ public class Tree {
         }
     }
 
-    public void traversePreOrder(){
+    public void traversePreOrder() {
         traversePreOrder(root);
     }
 
-    private void traversePreOrder(Node root){
+    private void traversePreOrder(Node root) {
         if(root == null)
             return;
         System.out.println(root.value);
@@ -79,11 +79,11 @@ public class Tree {
         traversePreOrder(root.rightChild);
     }
 
-    public void traverseInOrder(){
+    public void traverseInOrder() {
         traverseInOrder(root);
     }
 
-    private void traverseInOrder(Node root){
+    private void traverseInOrder(Node root) {
         if(root == null)
             return;
         traverseInOrder(root.leftChild);
@@ -91,10 +91,10 @@ public class Tree {
         traverseInOrder(root.rightChild);
     }
 
-    public void traversePostOrder(){
+    public void traversePostOrder() {
         traversePostOrder(root);
     }
-    private void traversePostOrder(Node root){
+    private void traversePostOrder(Node root) {
         if(root == null)
             return;
         traverseInOrder(root.leftChild);
@@ -106,7 +106,7 @@ public class Tree {
         return height(root);
     }
 
-    private int height(Node root){
+    private int height(Node root) {
         if(root == null)
             return -1;
         if(isLeafNode(root))
@@ -114,50 +114,72 @@ public class Tree {
         return 1 + Math.max(height(root.leftChild), height(root.rightChild));
     }
 
-    private boolean isLeafNode(Node node){
+    private boolean isLeafNode(Node node) {
         return node.leftChild == null && node.rightChild == null;
     }
 
-    public int minInBinarySearchTree(){
+    public int minInBinarySearchTree() {
         if (root == null)
             throw new IllegalStateException();
         var current = root;
         var last = current;
-        while (current != null){
+        while (current != null) {
             last = current;
             current = current.leftChild;
         }
         return last.value;
     }
 
-    public int min(){
+    public int min() {
         return min(root);
     }
 
-    private int min(Node root){
-        if(isLeafNode(root)){
+    private int min(Node root) {
+        if(isLeafNode(root)) {
             return root.value;
         }
         var left = min(root.leftChild);
         var right = min(root.leftChild);
+
         return Math.min(Math.min(left,right), root.value);
     }
 
-    public boolean equals(Tree t2){
-        if(t2 == null){
+    public boolean equals(Tree t2) {
+        if(t2 == null) {
             return false;
         }
         return identicalTrees(this.root,t2.root);
     }
 
-    private boolean identicalTrees(Node a, Node b){
-        if(a == null && b == null){
+    private boolean identicalTrees(Node a, Node b) {
+        if(a == null && b == null) {
             return true;
         }
-        if(a != null && b != null){
+        if(a != null && b != null) {
             return (a.value == b.value && identicalTrees(a.leftChild, b.leftChild)
                     && identicalTrees(a.rightChild, b.rightChild));
         }
         return false;
+    }
+
+    public boolean isBinarySearchTree() {
+       return isBinarySearchTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public void swapRoot() {
+        var temp = root.leftChild;
+        root.leftChild = root.rightChild;
+        root.rightChild = temp;
+    }
+
+    private boolean isBinarySearchTree(Node root, int min, int max) {
+        if(root == null) {
+            return true;
+        }
+        if(root.value < min || root.value > max) {
+            return false;
+        }
+        return isBinarySearchTree(root.leftChild, min, root.value - 1)
+                && isBinarySearchTree(root.rightChild, root.value + 1, max) ;
     }
 }
