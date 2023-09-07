@@ -1,6 +1,9 @@
 package com.nahayo.tree;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tree {
     private Node root;
 
@@ -181,5 +184,23 @@ public class Tree {
         }
         return isBinarySearchTree(root.leftChild, min, root.value - 1)
                 && isBinarySearchTree(root.rightChild, root.value + 1, max) ;
+    }
+
+    public ArrayList<Integer> getNodesAtKDistance(int distance){
+        ArrayList<Integer> list = new ArrayList<>();
+        getNodesAtKDistance(root, distance , list);
+        return list;
+    }
+
+    public void getNodesAtKDistance(Node root, int distance, ArrayList<Integer> list){
+        if(root == null){
+            return;
+        }
+        if(distance == 0){
+            list.add(root.value);
+            return;
+        }
+        getNodesAtKDistance(root.leftChild, distance - 1, list);
+        getNodesAtKDistance(root.rightChild, distance - 1,  list);
     }
 }
