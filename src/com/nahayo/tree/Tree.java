@@ -186,13 +186,13 @@ public class Tree {
                 && isBinarySearchTree(root.rightChild, root.value + 1, max) ;
     }
 
-    public ArrayList<Integer> getNodesAtKDistance(int distance){
+    public ArrayList<Integer> getNodesAtKDistance(int distance) {
         ArrayList<Integer> list = new ArrayList<>();
         getNodesAtKDistance(root, distance , list);
         return list;
     }
 
-    public void getNodesAtKDistance(Node root, int distance, ArrayList<Integer> list){
+    public void getNodesAtKDistance(Node root, int distance, ArrayList<Integer> list) {
         if(root == null){
             return;
         }
@@ -202,5 +202,13 @@ public class Tree {
         }
         getNodesAtKDistance(root.leftChild, distance - 1, list);
         getNodesAtKDistance(root.rightChild, distance - 1,  list);
+    }
+
+    public void traverseLevelOrder(){
+        for (int i = 0; i <= height() ; i++) {
+            for (var value : getNodesAtKDistance(i)) {
+                System.out.println(value);
+            }
+        }
     }
 }
