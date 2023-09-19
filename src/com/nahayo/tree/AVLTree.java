@@ -35,10 +35,37 @@ public class AVLTree {
         }
             root.height = Math.max(height(root.leftChild),
                     height(root.rightChild)) + 1;
+
+        balance(root);
+
         return root;
     }
 
-    private int height (AVLNode node) {
+    private void balance(AVLNode root) {
+        if (isLeftHeavy(root)) {
+            System.out.println(root.value + " is left heavy");
+        }
+        else if (isRightHeavy(root)) {
+           if (balanceFactor(root.rightChild) > 0) {
+               System.out.println("right rotate on " + root.rightChild.value);
+               System.out.println("left rotate " + root.value);
+           }
+        }
+    }
+
+    private int balanceFactor(AVLNode node){
+       return (node == null) ? 0 : height(node.leftChild) - height(node.rightChild);
+    }
+
+    private boolean isLeftHeavy(AVLNode node) {
+        return balanceFactor(node) > 1;
+    }
+
+    private boolean isRightHeavy(AVLNode node) {
+        return balanceFactor(node) < -1;
+    }
+
+    private int height(AVLNode node) {
         return (node == null) ? -1 : node.height;
     }
 }
