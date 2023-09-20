@@ -43,7 +43,10 @@ public class AVLTree {
 
     private void balance(AVLNode root) {
         if (isLeftHeavy(root)) {
-            System.out.println(root.value + " is left heavy");
+            if (balanceFactor(root.leftChild) < 0) {
+                System.out.println("left rotate " + root.leftChild.value);
+                System.out.println("Right rotate  " + root.value);
+            }
         }
         else if (isRightHeavy(root)) {
            if (balanceFactor(root.rightChild) > 0) {
