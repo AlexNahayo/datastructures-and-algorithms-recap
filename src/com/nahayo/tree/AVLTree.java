@@ -33,31 +33,55 @@ public class AVLTree {
         else {
             root.rightChild = insert(root.rightChild, value);
         }
-            root.height = Math.max(height(root.leftChild),
-                    height(root.rightChild)) + 1;
-
-        balance(root);
-
-        return root;
+        setHeight(root);
+        return balance(root);
     }
 
-    private void balance(AVLNode root) {
+    private AVLNode balance(AVLNode root) {
         if (isLeftHeavy(root)) {
             if (balanceFactor(root.leftChild) < 0) {
-                System.out.println("left rotate " + root.leftChild.value);
-                System.out.println("Right rotate  " + root.value);
+               root.leftChild = rotateLeft(root.leftChild);
+            return rotateRight(root);
             }
         }
         else if (isRightHeavy(root)) {
            if (balanceFactor(root.rightChild) > 0) {
-               System.out.println("right rotate on " + root.rightChild.value);
-               System.out.println("left rotate " + root.value);
+              root.rightChild = rotateRight(root.rightChild);
+            return rotateLeft(root);
            }
         }
+        return root;
     }
 
     private int balanceFactor(AVLNode node){
        return (node == null) ? 0 : height(node.leftChild) - height(node.rightChild);
+    }
+
+
+    private AVLNode rotateLeft(AVLNode root){
+        var newRoot = root.rightChild;
+        root.rightChild = newRoot.leftChild;
+        newRoot.leftChild = root;
+
+        setHeight(root);
+        setHeight(newRoot);
+
+        return newRoot;
+    }
+
+    private AVLNode rotateRight(AVLNode node){
+        var newRoot = root.leftChild;
+        root.leftChild = newRoot.rightChild;
+        newRoot.rightChild = root;
+
+        setHeight(root);
+        setHeight(newRoot);
+
+        return newRoot;
+    }
+
+    private void setHeight(AVLNode node) {
+        node.height = Math.max(height(node.leftChild),height(node.rightChild)) + 1;
     }
 
     private boolean isLeftHeavy(AVLNode node) {
