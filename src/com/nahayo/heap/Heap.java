@@ -1,42 +1,39 @@
 package com.nahayo.heap;
 
 public class Heap {
-    int [] elements;
+    private final int [] elements;
 
-    int count;
+    private int size;
 
     public Heap(int size) {
        elements = new int[size];
     }
 
     public void insert(int element) {
-        //when heap is empty, then just add element to the first position in the array
-        if (count == 0) {
-            elements[0] = element;
+        if (isFull()) {
+            throw new IllegalStateException();
         }
-        //when the heap is full the just through an exception
-        else if (count == elements.length) {
-            throw new IndexOutOfBoundsException();
+        elements[size++] = element;
+        bubbleUp();
+    }
+
+    public boolean isFull() {
+        return size == elements.length;
+    }
+    private void bubbleUp() {
+        var index = size - 1;
+        while (index > 0 && elements[index] > elements[parent(index)]) {
+            swap(index, parent(index));
+            index = parent(index);
         }
-        else {
+    }
+    private int parent(int index) {
+        return (index - 1 ) / 2 ;
+    }
 
-            //loop through array until you get into the next available slot.
-            for (int i = 1; i < elements.length ; i++) {
-                //check for correct insertion
-                if (elements[i] == 0  && elements[i] >= element) {
-                    elements[i] = element;
-                    break;
-                }
-                else {
-
-                }
-            }
-            count++;
-
-            //given a fixed sized heap
-            //1) check is Left Child exists (using LC formula "parent * 2 + 1")
-            //1) a check if parent child.vale in greater than new element.value
-        }
-
+    private void swap(int first, int second) {
+        var temp = elements[first];
+        elements[first] = elements [second];
+        elements[second] = temp;
     }
 }
