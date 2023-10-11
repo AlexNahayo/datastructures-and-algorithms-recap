@@ -1,12 +1,12 @@
 package com.nahayo.heap;
 
 public class Heap {
-    private final int [] elements;
+    private final int[] elements;
 
     private int size;
 
     public Heap(int size) {
-       elements = new int[size];
+        elements = new int[size];
     }
 
     public void insert(int element) {
@@ -18,12 +18,12 @@ public class Heap {
     }
 
     public void remove() {
-        if (isEmpty()) {
+        if (isEmpty())
             throw new IllegalStateException();
-        }
+
         elements[0] = elements[--size];
         int index = 0;
-        while(index <= size && !isValidParent(index)){
+        while (index <= size && !isValidParent(index)) {
             int largerChildIndex = largerChildIndex(index);
             swap(index, largerChildIndex);
             index = largerChildIndex;
@@ -31,13 +31,34 @@ public class Heap {
     }
 
     private boolean isValidParent(int index) {
-        return elements[index] >= leftChildIndex(index) &&
-                elements[index] >= rightChild(index);
+        if (!hasLeftChild(index))
+            return true;
+
+        var isValid = elements[index] >= leftChild(index);
+
+        if (hasRightChild(index))
+            isValid &= elements[index] >= rightChild(index);
+
+        return isValid;
     }
 
     private int largerChildIndex(int index) {
+        if (!hasLeftChild(index))
+            return index;
+
+        if (!hasRightChild(index))
+            return leftChildIndex(index);
+
         return (leftChild(index) > rightChild(index)) ?
-                        leftChildIndex(index) : rightChildIndex(index);
+                leftChildIndex(index) : rightChildIndex(index);
+    }
+
+    private boolean hasLeftChild(int index) {
+        return leftChildIndex(index) <= size;
+    }
+
+    private boolean hasRightChild(int index) {
+        return leftChildIndex(index) <= size;
     }
 
     private int leftChild(int index) {
@@ -72,16 +93,8 @@ public class Heap {
         }
     }
 
-    private void bubbleDown() {
-        var index = size - 1;
-        while (index > 0 && elements[index] > elements[parent(index)]) {
-            swap(index, parent(index));
-            index = parent(index);
-        }
-    }
-
     private int parent(int index) {
-        return (index - 1 ) / 2 ;
+        return (index - 1) / 2;
     }
 
     private void swap(int first, int second) {
