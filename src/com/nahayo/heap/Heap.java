@@ -17,38 +17,34 @@ public class Heap {
         bubbleUp();
     }
 
-    public void remove() {
-        if (isEmpty())
+    public int remove() {
+        if (isEmpty()) {
             throw new IllegalStateException();
-
-        elements[0] = elements[--size];
-        int index = 0;
-        while (index <= size && !isValidParent(index)) {
-            int largerChildIndex = largerChildIndex(index);
-            swap(index, largerChildIndex);
-            index = largerChildIndex;
         }
+        var root = elements[0];
+        elements[0] = elements[--size];
+        bubbleDown();
+        return root;
     }
 
     private boolean isValidParent(int index) {
-        if (!hasLeftChild(index))
+        if (!hasLeftChild(index)) {
             return true;
-
+        }
         var isValid = elements[index] >= leftChild(index);
-
-        if (hasRightChild(index))
+        if (hasRightChild(index)) {
             isValid &= elements[index] >= rightChild(index);
-
+        }
         return isValid;
     }
 
     private int largerChildIndex(int index) {
-        if (!hasLeftChild(index))
+        if (!hasLeftChild(index)) {
             return index;
-
-        if (!hasRightChild(index))
+        }
+        if (!hasRightChild(index))  {
             return leftChildIndex(index);
-
+        }
         return (leftChild(index) > rightChild(index)) ?
                 leftChildIndex(index) : rightChildIndex(index);
     }
@@ -58,7 +54,7 @@ public class Heap {
     }
 
     private boolean hasRightChild(int index) {
-        return leftChildIndex(index) <= size;
+        return rightChildIndex(index) <= size;
     }
 
     private int leftChild(int index) {
@@ -66,7 +62,7 @@ public class Heap {
     }
 
     private int rightChild(int index) {
-        return elements[leftChildIndex(index)];
+        return elements[rightChildIndex(index)];
     }
 
     private int leftChildIndex(int index) {
@@ -90,6 +86,15 @@ public class Heap {
         while (index > 0 && elements[index] > elements[parent(index)]) {
             swap(index, parent(index));
             index = parent(index);
+        }
+    }
+
+    public void bubbleDown() {
+        int index = 0;
+        while (index <= size && !isValidParent(index)) {
+            int largerChildIndex = largerChildIndex(index);
+            swap(index, largerChildIndex);
+            index = largerChildIndex;
         }
     }
 
