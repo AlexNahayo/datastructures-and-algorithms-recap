@@ -1,5 +1,7 @@
 package com.nahayo.heap;
 
+import javax.swing.plaf.IconUIResource;
+
 public class Heap {
     private final int[] elements;
 
@@ -106,5 +108,28 @@ public class Heap {
         var temp = elements[first];
         elements[first] = elements[second];
         elements[second] = temp;
+    }
+
+
+    //Todo work in progress
+    public static int[] heapify(int[] array){
+        for (int i = 0; i < array.length; i++) {
+            if(array[i + 1] != array.length - 2) {
+                if(array[i] >= array[i + 1] && array[i] >=  array[i + 2]){
+                    continue;
+                }
+                else if(array[i + 1] > array[i + 2]){
+                    int temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                }
+                else {
+                    int temp = array[i];
+                    array[i] = array[i + 2];
+                    array[i + 2] = temp;
+                }
+            }
+        }
+        return array;
     }
 }
