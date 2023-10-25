@@ -110,26 +110,10 @@ public class Heap {
         elements[second] = temp;
     }
 
-
-    //Todo work in progress
-    public static int[] heapify(int[] array){
-        for (int i = 0; i < array.length; i++) {
-            if(array[i + 1] != array.length - 2) {
-                if(array[i] >= array[i + 1] && array[i] >=  array[i + 2]){
-                    continue;
-                }
-                else if(array[i + 1] > array[i + 2]){
-                    int temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
-                }
-                else {
-                    int temp = array[i];
-                    array[i] = array[i + 2];
-                    array[i + 2] = temp;
-                }
-            }
+    public int max() {
+        if(isEmpty()){
+            throw new IllegalStateException();
         }
-        return array;
+        return elements[0];
     }
 }
