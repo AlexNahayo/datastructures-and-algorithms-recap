@@ -137,14 +137,36 @@ public class Tree {
         return min(root);
     }
 
+    public int max() {
+        return max(root);
+    }
+
     private int min(Node root) {
+        if (root == null) {
+            return Integer.MAX_VALUE; // or throw an exception if null is invalid
+        }
+
         if(isLeafNode(root)) {
             return root.value;
         }
         var left = min(root.leftChild);
-        var right = min(root.leftChild);
+        var right = min(root.rightChild);
 
         return Math.min(Math.min(left,right), root.value);
+    }
+
+    private int max(Node root) {
+        if (root == null) {
+            return Integer.MIN_VALUE; // or throw an exception if null is invalid
+        }
+
+        if(isLeafNode(root)) {
+            return root.value;
+        }
+        var left = max(root.leftChild);
+        var right = max(root.rightChild);
+
+        return Math.max(Math.max(left,right), root.value);
     }
 
     public boolean equals(Tree t2) {
@@ -211,4 +233,26 @@ public class Tree {
             }
         }
     }
+
+    public  List<Integer> getAncestors(int target) {
+        List<Integer> ancestors = new ArrayList<>();
+        findAncestors(root, target, ancestors);
+        return ancestors;
+    }
+
+    private  boolean findAncestors(Node node, int target, List<Integer> ancestors) {
+        if (node == null) return false;
+
+        // If current node is the target
+        if (node.value == target) return true;
+
+        // If target is found in left or right subtree
+        if (findAncestors(node.leftChild, target, ancestors) || findAncestors(node.rightChild, target, ancestors)) {
+            ancestors.add(node.value);  // Add current node as an ancestor
+            return true;
+        }
+
+        return false;  // Target not found in either subtree
+    }
+
 }

@@ -1,7 +1,5 @@
 package com.nahayo.heap;
 
-import javax.swing.plaf.IconUIResource;
-
 public class Heap {
     private final int[] elements;
 
@@ -42,7 +40,7 @@ public class Heap {
 
     private int largerChildIndex(int index) {
         if (!hasLeftChild(index)) {
-            return index;
+            return index; //always fill our nodes from left to right
         }
         if (!hasRightChild(index))  {
             return leftChildIndex(index);
