@@ -46,7 +46,7 @@ public class Search {
             }
 
             if (target < array[middle]) {
-                right = middle - 1;
+                 right= middle - 1;
             } else {
                 left = middle + 1;
             }
