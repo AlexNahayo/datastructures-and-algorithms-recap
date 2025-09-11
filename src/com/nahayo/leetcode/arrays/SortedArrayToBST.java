@@ -14,21 +14,22 @@ package com.nahayo.leetcode.arrays;
 }
  public class SortedArrayToBST {
 
-     public TreeNode sortedArrayToBST(int[] nums) {
+     /**Space O (n) & Time O(log n)**/
+     public static TreeNode sortedArrayToBST(int[] nums) {
          if (nums.length == 0) {
              return null;
          }
-         return converArraytoBST(nums, 0, nums.length - 1);
+         return convertArraytoBST(nums, 0, nums.length - 1);
      }
 
-     TreeNode converArraytoBST(int[] nums, int left, int right) {
+     static TreeNode convertArraytoBST(int[] nums, int left, int right) {
          if(left > right) {
              return null;
          }
          int mid = left + (right - left) / 2;
          TreeNode node = new TreeNode(nums[mid]);
-         node.left = converArraytoBST(nums, left, mid - 1);
-         node.right = converArraytoBST(nums, mid + 1, right);
+         node.left = convertArraytoBST(nums, left, mid - 1);
+         node.right = convertArraytoBST(nums, mid + 1, right);
          return node;
      }
 }
