@@ -5,7 +5,7 @@ import java.util.HashSet;
 public class ContainsDuplicateII {
 
 
-    /**Time 0(n) & Space 0(k) **/
+    /**Time 0(n) & Space 0(k) where k are the elements in window**/
     public static boolean containsNearbyDuplicateSlidingWindow(int[] nums, int k) {
         // Declare a HashSet to store unique values within the current sliding window.
         HashSet<Integer> window = new HashSet<>();
