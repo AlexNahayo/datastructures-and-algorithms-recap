@@ -2,7 +2,7 @@ package com.nahayo.leetcode.arrays;
 
 public class MajorityElement {
 
-    /**Space (1) & Time (n)**/
+    /**Space O(1) & Time 0(n)**/
         public static int majorityElement(int[] nums) {
             // Step 1: Initialize
             int majority = nums[0]; // start with the first element as the majority candidate
