@@ -34,7 +34,7 @@ public class IntersectionOfTwoArrays {
         return result;
     }
 
-    /**Space O(n) & Time 0(n)**/
+    /**Space O(n + m) & Time 0(n + m)**/
     public int[] intersectionII(int[] nums1, int[] nums2) {
         // Map to count how many times each number appears in nums1
         Map<Integer, Integer> map = new HashMap<>();
