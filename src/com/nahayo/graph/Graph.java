@@ -3,6 +3,8 @@ package com.nahayo.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -74,4 +76,22 @@ public class Graph {
         }
     }
 
+    public void traverseDepthFirst(String root) {
+        var node = nodes.get(root);
+        if (node == null)
+            return;
+        traverseDepthFirst(node, new HashSet<>());
+    }
+
+    private void traverseDepthFirst(Node root, Set<Node> visited) {
+        //visit the root node
+        System.out.println(root);
+        visited.add(root);
+
+        //recursively visit all the neighbours of the root node.
+        for (var node : adjacencyList.get(root))
+            if(!visited.contains(node))
+                traverseDepthFirst(node, visited);
+    }
+    
 }
