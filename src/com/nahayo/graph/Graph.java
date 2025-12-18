@@ -158,4 +158,35 @@ public class Graph {
         }
 
     }
+
+    public List<String> topologicalSort() {
+        Stack<Node> stack = new Stack<>();
+        Set<Node> visited = new HashSet<>();
+
+        for (var node : nodes.values())
+            topologicalSort(node, visited, stack);
+
+        //pop items from the stack put them in a list
+        List<String> sorted = new ArrayList<>();
+        while (!stack.isEmpty())
+            sorted.add(stack.pop().label);
+
+        return sorted;
+    }
+
+    private void topologicalSort(Node node,
+                                 Set<Node> visited,
+                                 Stack<Node> stack) {
+        if (visited.contains(node))
+          return;
+
+        visited.add(node);
+
+        //recursively visit all the children of the node.
+        for (var neighbour : adjacencyList.get(node))
+            topologicalSort(neighbour, visited, stack);
+
+        //once we have visited the given children a node, then we are ready push that node on our stack.
+        stack.push(node);
+    }
 }
