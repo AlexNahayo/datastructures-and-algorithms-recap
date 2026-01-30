@@ -1,6 +1,12 @@
 package com.nahayo.graph;
 
+import com.nahayo.Path;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+import java.util.Stack;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +78,114 @@ public class WeightedGraph {
                 System.out.println(node +" is connected to "+ edges);
             }
         }
+    }
+
+    private class NodeEntry {
+        private Node node;
+
+        private int priority;
+
+        public NodeEntry(Node node, int priority) {
+            this.node = node;
+            this.priority = priority;
+        }
+    }
+
+    public Path getShortestDistance(String from, String to) {
+
+        // Look up the starting node
+        var fromNode = nodes.get(from);
+        if (fromNode == null)
+            throw new IllegalArgumentException();
+
+        // Look up the destination node
+        var toNode = nodes.get(to);
+        if (toNode == null)
+            throw new IllegalArgumentException();
+
+        // Stores the shortest known distance from the start node to every node
+        Map<Node, Integer> distances = new HashMap<>();
+        for (var node : nodes.values())
+            distances.put(node, Integer.MAX_VALUE);
+
+        // Distance from the start node to itself is zero
+        distances.put(fromNode, 0);
+
+        // Stores the previous node in the shortest path for each node
+        // (used later to reconstruct the path)
+        Map<Node, Node> previousNodes = new HashMap<>();
+
+        // Keeps track of nodes whose shortest distance is already finalized
+        Set<Node> visited = new HashSet<>();
+
+        // Priority queue that always processes the node with the smallest distance
+        PriorityQueue<NodeEntry> queue = new PriorityQueue<>(
+                Comparator.comparingInt(ne -> ne.priority)
+        );
+
+        // Start the algorithm with the starting node
+        queue.add(new NodeEntry(fromNode, 0));
+
+        while (!queue.isEmpty()) {
+
+            // Remove the node with the smallest known distance
+            var current = queue.remove().node;
+
+            // Skip if this node was already processed
+            if (visited.contains(current))
+                continue;
+
+            // Mark this node as visited (its shortest distance is now final)
+            visited.add(current);
+
+            // Relax edges: try to improve distances to neighboring nodes
+            for (var edge : current.getEdges()) {
+
+                // Ignore neighbors that were already finalized
+                if (visited.contains(edge.to))
+                    continue;
+
+                // Calculate distance to the neighbor through the current node
+                var newDistance = distances.get(current) + edge.weight;
+
+                // If a shorter path is found, update distance and path
+                if (newDistance < distances.get(edge.to)) {
+                    distances.put(edge.to, newDistance);
+                    previousNodes.put(edge.to, current);
+
+                    // Push the neighbor into the queue with updated priority
+                    queue.add(new NodeEntry(edge.to, newDistance));
+                }
+            }
+        }
+
+        // Reconstruct the shortest path from the destination node
+        return buildPath(toNode, previousNodes);
+    }
+
+    private static Path buildPath(Node toNode, Map<Node, Node> previousNodes) {
+
+        // Stack is used to reverse the path order (destination → source)
+        Stack<Node> stack = new Stack<>();
+
+        // Start from the destination node
+        // The destination itself will not appear as a key in previousNodes
+        stack.push(toNode);
+
+        // Follow the chain of previous nodes back to the start
+        var previous = previousNodes.get(toNode);
+        while (previous != null) {
+            stack.push(previous);
+            previous = previousNodes.get(previous);
+        }
+
+        // Build the path in correct order (source → destination)
+        var path = new Path();
+        while (!stack.isEmpty()) {
+            path.add(stack.pop().label);
+        }
+
+        return path;
     }
 }
 
