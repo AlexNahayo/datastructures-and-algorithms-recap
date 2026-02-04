@@ -91,6 +91,52 @@ public class WeightedGraph {
         }
     }
 
+    public boolean hasCycle() {
+        // Tracks all nodes that have already been visited during DFS
+        Set<Node> visited = new HashSet<>();
+
+        // Run DFS from each node to ensure disconnected graphs are handled
+        for (var node : nodes.values()) {
+            // Only start DFS from unvisited nodes
+            if (!visited.contains(node) && hasCycle(node, null, visited)) {
+                // A cycle was found; no need to continue searching
+                return true;
+            }
+        }
+
+        // No cycles were found in any component of the graph
+        return false;
+    }
+
+    /**
+     * Performs a depth-first search to detect cycles.
+     *
+     * @param node    the current node being visited
+     * @param parent  the node we arrived from (used to avoid backtracking)
+     * @param visited set of nodes already visited in the DFS
+     */
+    private boolean hasCycle(Node node, Node parent, Set<Node> visited) {
+        // Mark the current node as visited
+        visited.add(node);
+
+        // Explore all adjacent nodes
+        for (var edge : node.getEdges()) {
+            Node neighbor = edge.to;
+
+            // Skip the edge leading back to the parent node
+            if (neighbor == parent)
+                continue;
+
+            // If the neighbor was already visited, or a cycle is found downstream,
+            // then the graph contains a cycle
+            if (visited.contains(neighbor) || hasCycle(neighbor, node, visited))
+                return true;
+        }
+
+        // No cycle detected from this path
+        return false;
+    }
+
     public Path getShortestDistance(String from, String to) {
 
         // Look up the starting node
@@ -187,6 +233,7 @@ public class WeightedGraph {
 
         return path;
     }
+
 }
 
 
