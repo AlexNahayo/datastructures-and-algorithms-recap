@@ -25,7 +25,7 @@ public class WeightedGraph {
             return label;
         }
         public void addEdge(Node to, int weight) {
-           edges.add(new Edge(this, to, weight));
+            edges.add(new Edge(this, to, weight));
         }
 
         public List<Edge> getEdges() {
@@ -207,6 +207,59 @@ public class WeightedGraph {
 
         // Reconstruct the shortest path from the destination node
         return buildPath(toNode, previousNodes);
+    }
+
+    public WeightedGraph getMinimumSpanningTree() {
+        var tree = new WeightedGraph();
+
+        // Return empty tree if graph has no nodes
+        if (nodes.isEmpty())
+            return tree;
+
+        // Priority queue ordered by edge weight (smallest weight first)
+        PriorityQueue<Edge> edges = new PriorityQueue<>(
+                Comparator.comparingInt(e -> e.weight)
+        );
+
+        // Start from an arbitrary node and seed the PQ with its edges
+        var startNode = nodes.values().iterator().next();
+        edges.addAll(startNode.getEdges());
+
+        // Add starting node to the MST
+        // Note: addNode creates a new node instance with the same label
+        tree.addNode(startNode.label);
+
+        // If the start node has no edges, MST is just that node
+        if (edges.isEmpty()) {
+            return tree;
+        }
+
+        // Continue until all graph nodes are included in the MST
+        while (tree.nodes.size() < nodes.size()) {
+            // Extract the smallest edge connecting to a potential new node
+            var minEdge = edges.remove();
+            var nextNode = minEdge.to;
+
+            // Skip edges leading to nodes already in the tree (avoid cycles)
+            if (tree.containsNode(nextNode.label))
+                continue;
+
+            // Add the new node and connecting edge to the MST
+            tree.addNode(nextNode.label);
+            tree.addEdge(minEdge.from.label,
+                    nextNode.label, minEdge.weight);
+
+            // Add edges from the newly added node that lead to unvisited nodes
+            for (var edge : nextNode.getEdges())
+                if (!tree.containsNode(edge.to.label))
+                    edges.add(edge);
+        }
+
+        return tree;
+    }
+
+    public boolean containsNode(String label) {
+        return nodes.containsKey(label);
     }
 
     private static Path buildPath(Node toNode, Map<Node, Node> previousNodes) {
