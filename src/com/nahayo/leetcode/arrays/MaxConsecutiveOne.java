@@ -1,5 +1,7 @@
 package com.nahayo.leetcode.arrays;
 
+
+/** Time O(n) & Space O(1) **/
 public class MaxConsecutiveOne {
     public int findMaxConsecutiveOnes(int[] nums) {
         int count = 0;

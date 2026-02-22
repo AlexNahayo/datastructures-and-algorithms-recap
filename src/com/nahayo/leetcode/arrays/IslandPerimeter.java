@@ -1,5 +1,7 @@
 package com.nahayo.leetcode.arrays;
 
+
+/** Time 0(n ^2) & Space O(n ^2) - more formally 0(R * C) **/
 public class IslandPerimeter {
 
     public int islandPerimeter(int[][] grid) {
