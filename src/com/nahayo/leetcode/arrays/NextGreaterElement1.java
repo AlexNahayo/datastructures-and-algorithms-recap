@@ -3,12 +3,13 @@ package com.nahayo.leetcode.arrays;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class NextGreaterElement1 {
 
     // Let's do the brute force way first
     // Time 0(m^2) and Space O(n^2).
-    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+    public int[] nextGreaterElementBF(int[] nums1, int[] nums2) {
         // Create a map for nums1
         // Key   = value in nums1
         // Value = index where that value appears in nums1
@@ -77,6 +78,47 @@ public class NextGreaterElement1 {
                 // the result stays -1 (which is correct).
             }
         }
+        return result;
+    }
+
+    // More efficient solution using Monotonic Stack.
+    // Time 0(n + m) and Space O(n).
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+
+        // Map value -> index in nums1
+        Map<Integer, Integer> nums1ValMap = new HashMap<>();
+        for (int i = 0; i < nums1.length; i++) {
+            nums1ValMap.put(nums1[i], i);
+        }
+
+        // Result array (default -1)
+        int[] result = new int[nums1.length];
+        Arrays.fill(result, -1);
+
+        // Stack stores values from nums1 that we still need NGE for
+        Stack<Integer> stack = new Stack<>();
+
+        // Iterate through nums2
+        for (int j = 0; j < nums2.length; j++) {
+
+            int current = nums2[j];
+
+            // While stack is not empty
+            // and current is greater than stack top
+            // we found the Next Greater Element
+            while (!stack.isEmpty() && current > stack.peek()) {
+
+                int value = stack.pop();                 // value from nums1
+                int index = nums1ValMap.get(value);      // and find its index in nums1 from our Map
+                result[index] = current;                 // now  take this index and sets its value as current
+            }
+
+            // Only push in to stack if current exists in nums1
+            if (nums1ValMap.containsKey(current)) {
+                stack.push(current);
+            }
+        }
+
         return result;
     }
 }
