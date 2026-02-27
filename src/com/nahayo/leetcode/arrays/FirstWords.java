@@ -2,6 +2,7 @@ package com.nahayo.leetcode.arrays;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class FirstWords {
 
@@ -62,5 +63,19 @@ public class FirstWords {
 
         // All characters were found in the same row
         return true;
+    }
+
+
+
+    /**Time 0(n * m) where N = number of words &
+     ** L = average word length &
+     ** Space O(1)
+     * Note : Many temporary objects + regex compilation
+     * **/
+    public String[] findWordsStreams(String[] words) {
+        return Stream.of(words)
+                .filter( w -> w.toLowerCase()
+                .matches("[qwertyuiop]*|[asdfghjkl]*|[zxcvbnm]"))
+                .toArray(String[]::new);
     }
 }
