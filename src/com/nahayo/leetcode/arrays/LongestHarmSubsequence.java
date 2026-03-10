@@ -72,5 +72,4 @@ public class LongestHarmSubsequence {
         return max;
     }
 
-
 }
