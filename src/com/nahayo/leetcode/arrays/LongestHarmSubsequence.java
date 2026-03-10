@@ -1,5 +1,6 @@
 package com.nahayo.leetcode.arrays;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ public class LongestHarmSubsequence {
 
     /**Time 0(n) & Space O(1)
      **/
-    public int longestHarmoniousSubsequence(int[] nums) {
+    public int longestHarmoniousSubsequenceLinearSol(int[] nums) {
 
         // Create a map to store the frequency (count) of each number in the array
         Map<Integer, Integer> freq = new HashMap<>();
@@ -43,4 +44,33 @@ public class LongestHarmSubsequence {
         // Return the longest harmonious subsequence length found
         return max;
     }
+
+    /**Time O(n log n) & Space O(1)
+     **/
+    public int longestHarmoniousSubsequenceSlidingWindowSol(int[] nums) {
+
+        // Step 1: sort the array so similar values are grouped
+        Arrays.sort(nums);
+
+        int left = 0;
+        int max = 0;
+
+        // Step 2: expand the right pointer
+        for (int right = 0; right < nums.length; right++) {
+
+            // Step 3: shrink window if difference exceeds 1
+            while (nums[right] - nums[left] > 1) {
+                left++;
+            }
+
+            // Step 4: valid harmonious subsequence
+            if (nums[right] - nums[left] == 1) {
+                max = Math.max(max, right - left + 1);
+            }
+        }
+
+        return max;
+    }
+
+
 }
