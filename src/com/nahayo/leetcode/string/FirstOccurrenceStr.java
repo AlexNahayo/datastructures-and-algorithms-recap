@@ -1,0 +1,37 @@
+package com.nahayo.leetcode.string;
+
+public class FirstOccurrenceStr {
+
+    /**
+     * O(H X M) where H is the number of characters in the haystack &
+     * M is he number of characters in the needle
+     * Space : O(1)
+     * **/
+    public int strStr(String haystack, String needle) {
+        // Edge case: if needle is empty, return 0 by definition
+        if (needle.length() == 0) return 0;
+
+        // Loop through each possible starting index in haystack
+        // We only need to go up to (haystack.length - needle.length)
+        // because needle won't fit beyond that point
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+
+            // Check if needle matches starting at index i
+            int j;
+            for (j = 0; j < needle.length(); j++) {
+                // Compare character by character
+                if (haystack.charAt(i + j) != needle.charAt(j)) {
+                    break; // mismatch found, stop checking further
+                }
+            }
+
+            // If we reached the end of needle, all characters matched
+            if (j == needle.length()) {
+                return i; // return the starting index of the first occurrence
+            }
+        }
+
+        // Needle not found in haystack
+        return -1;
+    }
+}
