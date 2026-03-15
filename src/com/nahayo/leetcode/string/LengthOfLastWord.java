@@ -30,5 +30,5 @@ public class LengthOfLastWord {
         // total length - starting index of the last word
         return s.length() - lastSpaceIndex - 1;
     }
-    
+
 }
