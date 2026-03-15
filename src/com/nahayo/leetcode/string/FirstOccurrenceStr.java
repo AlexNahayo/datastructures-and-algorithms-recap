@@ -3,7 +3,7 @@ package com.nahayo.leetcode.string;
 public class FirstOccurrenceStr {
 
     /**
-     * O(H X M) where H is the number of characters in the haystack &
+     * Time : O(H X M) where H is the number of characters in the haystack &
      * M is he number of characters in the needle
      * Space : O(1)
      * **/
@@ -31,6 +31,28 @@ public class FirstOccurrenceStr {
             }
         }
 
+        // Needle not found in haystack
+        return -1;
+    }
+
+    /**
+     * Time : O(H X M)
+     * Space : O(1)
+     * **/
+    public int strStrSubStringSol(String haystack, String needle) {
+        // Edge case: if needle is empty, return 0
+        if (needle.length() == 0) return 0;
+
+        // Loop through haystack, only up to a point where needle can fit
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            // Extract substring of haystack with the same length as needle
+            String sub = haystack.substring(i, i + needle.length());
+
+            // Compare the substring with needle
+            if (sub.equals(needle)) {
+                return i; // Found the first occurrence, return index
+            }
+        }
         // Needle not found in haystack
         return -1;
     }
