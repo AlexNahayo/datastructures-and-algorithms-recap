@@ -21,4 +21,34 @@ public class ExcelSheet {
         // Reverse the result since we constructed it backwards
         return result.reverse().toString();
     }
+
+    /***Time O(n) & Space O(n)***/
+    public int titleToNumber(String columnTitle) {
+        if (columnTitle == null || columnTitle.isEmpty()) {
+            return -1; // Handle null or empty input
+        }
+
+        int result = 0;
+        for (char c : columnTitle.toCharArray()) {
+            // Convert char to number: 'A' -> 1, 'B' -> 2, ..., 'Z' -> 26
+            result = result * 26 + (c - 'A' + 1);
+        }
+
+        return result;
+    }
+
+    /***Time O(n) & Space O(1)***/
+    public int titleToNumberCleanSol(String columnTitle) {
+        if (columnTitle == null || columnTitle.isEmpty()) {
+            return -1; // Handle null or empty input
+        }
+
+        int result = 0;
+        for (int i = 0; i < columnTitle.length(); i++) {
+            char c = columnTitle.charAt(i);
+            result = result * 26 + (c - 'A' + 1);
+        }
+
+        return result;
+    }
 }
