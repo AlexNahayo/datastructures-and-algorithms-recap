@@ -18,6 +18,7 @@ import java.util.List;
  * }
  */
 
+/*
 public class BinaryTreePaths {
     public List<String> binaryTreePaths(TreeNode root) {
         List<String> result = new ArrayList<>();
@@ -63,3 +64,4 @@ public class BinaryTreePaths {
     }
 
 }
+ */
