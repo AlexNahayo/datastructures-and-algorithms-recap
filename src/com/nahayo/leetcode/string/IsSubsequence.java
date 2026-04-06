@@ -28,7 +28,7 @@ public class IsSubsequence {
 
             // If current character in t matches current character in s
             // increment count to move to next character in s
-            if (charArrayT[i] == charArray[count]) {
+            if (count < charArray.length && charArrayT[i] == charArray[count]) {
                 count++;
             }
 
@@ -64,7 +64,8 @@ public class IsSubsequence {
         // increment count to move to next character in s
         for (int i = 0; i < t.length(); i++) {
 
-            if (t.charAt(i) == s.charAt(count)) {
+            // Only check s.charAt(count) if count < sArr.length
+            if (count < s.length() && t.charAt(i) == s.charAt(count)) {
                 // Move pointer forward in s
                 count++;
             }
